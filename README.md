@@ -2,6 +2,7 @@
 
 # Counsel
 
+
 > An AI-assisted legal and HR guidance experience with streamed conversations, usage entitlements, and a focused service journey.
 
 [![Case study](https://img.shields.io/badge/case%20study-public%20portfolio-5B5CE2)](SECURITY.md)
