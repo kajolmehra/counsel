@@ -34,18 +34,27 @@ Counsel combines a polished React service website with an authenticated AI assis
 | Authentication | JWT sessions, password hashing, protected chat and history endpoints |
 | Product UX | Service discovery, free-limit messaging, loading states, upgrade-ready journey |
 
-## Representative flow
+## Conversation and entitlement flow
+
+Counsel makes the access boundary explicit: the visitor discovers a service, authenticates, receives a streamed answer within the account's entitlement, and can continue through history or an upgrade path.
 
 ```mermaid
-flowchart LR
-    Visitor[Explore legal or HR services] --> Register[Register and verify]
-    Register --> Chat[Open assistant]
-    Chat --> Limit{Usage entitlement}
-    Limit -->|Free allowance| Stream[Stream AI response]
-    Limit -->|Paid access| Stream
-    Stream --> History[(Persist chat history)]
-    Chat --> Upgrade[Upgrade / payment state]
+flowchart TB
+    Visitor[Explore legal or HR services] --> Service[Choose service area]
+    Service --> Register[Register / sign in]
+    Register --> Session[Create protected session]
+    Session --> Prompt[Submit question]
+    Prompt --> Entitlement{Usage entitlement}
+    Entitlement -->|Allowance available| Guard[Validate request]
+    Entitlement -->|Limit reached| Upgrade[Upgrade access]
+    Upgrade --> Entitlement
+    Guard --> Stream[Stream AI response]
+    Stream --> History[(Persist conversation)]
+    History --> FollowUp[Ask follow-up or review history]
+    FollowUp --> Prompt
 ```
+
+**Outcome:** a governed conversation loop with clear usage boundaries, persisted history, and a transparent upgrade path.
 
 ## Technical stack
 
